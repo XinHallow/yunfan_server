@@ -15,7 +15,7 @@ function handler(request: Request): Response | Error {
     return new Error("错误的URL");
   }
 
-  const file_path = `${cwd}/${generate_today_string()}.json`;
+  const file_path = `${cwd}/homework/${generate_today_string()}.json`;
   // 检查文件是否存在
   try {
     Deno.statSync(file_path);

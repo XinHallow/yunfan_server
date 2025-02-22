@@ -29,7 +29,7 @@ function handler(request: Request): Response | Error {
 
     // 处理路径和文件名
     const date = generate_today_string();
-    const file_path = `${cwd}\\homework\\${date}.json`;
+    const file_path = `${cwd}/homework/${date}.json`;
 
     // 写入文件
     Deno.writeTextFileSync(file_path, JSON.stringify(homework_result));

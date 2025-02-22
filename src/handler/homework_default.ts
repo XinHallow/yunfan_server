@@ -15,28 +15,28 @@ function handler(request: Request): Response | Error {
     return new Error("错误的URL");
   }
 
-  // 尝试获取作业
-  if (Deno.statSync(`${cwd}\\homework\\${generate_today_string()}.json`)) {
+  const file_path = `${cwd}/${generate_today_string()}.json`;
+  // 检查文件是否存在
+  try {
+    Deno.statSync(file_path);
+    const file_content = new TextDecoder("utf-8").decode(
+      Deno.readFileSync(file_path)
+    );
     return generate_response(
-      JSON.stringify(
-        JSON.parse(
-          new TextDecoder("utf-8").decode(
-            Deno.readFileSync(
-              `${cwd}\\homework\\${generate_today_string()}.json`
-            )
-          )
-        )
-      ),
+      file_content,
       200,
       generate_headers({ key: "Content-Type", value: "application/json" })
     );
-  } else {
-    return generate_response(
-      `{"msg":"读取失败，无今天的作业"}`,
-      400,
-      generate_headers({ key: "Content-Type", value: "application/json" })
-    );
+  } catch (error) {
+    if (!(error instanceof Deno.errors.NotFound)) {
+      return generate_response(
+        `{"msg":"文件不存在，无法获取今天作业"}`,
+        400,
+        generate_headers({ key: "Content-Type", value: "application/json" })
+      );
+    }
   }
+  return new Error("未知错误");
 }
 
 export default handler;

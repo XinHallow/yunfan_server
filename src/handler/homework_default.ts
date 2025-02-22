@@ -28,7 +28,7 @@ function handler(request: Request): Response | Error {
       generate_headers({ key: "Content-Type", value: "application/json" })
     );
   } catch (error) {
-    if (!(error instanceof Deno.errors.NotFound)) {
+    if (error instanceof Deno.errors.NotFound) {
       return generate_response(
         `{"msg":"文件不存在，无法获取今天作业"}`,
         400,

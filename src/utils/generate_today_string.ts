@@ -1,3 +1,3 @@
 export default function () {
-  return `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`;
+  return `${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}`;
 }

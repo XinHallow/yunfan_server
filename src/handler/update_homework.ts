@@ -3,8 +3,7 @@ import { check_is_homework } from "../homework.ts";
 import generate_response from "../utils/generate_response.ts";
 import generate_headers from "../utils/generate_headers.ts";
 import generate_today_string from "../utils/generate_today_string.ts";
-
-const cwd = Deno.cwd();
+import { cwd } from "../constants.ts";
 
 function handler(request: Request): Response | Error {
   // 如果方法不对
@@ -30,7 +29,7 @@ function handler(request: Request): Response | Error {
 
     // 处理路径和文件名
     const date = generate_today_string();
-    const file_path = `${cwd}\\homework\\${date}.json`;
+    const file_path = `${cwd}/homework/${date}.json`;
 
     // 写入文件
     Deno.writeTextFileSync(file_path, JSON.stringify(homework_result));

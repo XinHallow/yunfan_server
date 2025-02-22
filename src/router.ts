@@ -5,7 +5,6 @@ export default function (request: Request): Response {
   for (const handler of handlers) {
     const status = handler(request);
     if (status instanceof Error) {
-      console.log(`URL ${request.url} 无法响应`);
       continue;
     }
     return status;

@@ -1,0 +1,1 @@
+export const cwd = Deno.cwd();
